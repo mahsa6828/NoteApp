@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative"
+    android:paddingTop="6dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        android:textSize="20sp"
+        android:textColor="@color/purple_700"
+        android:text="title"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTitle"
+        android:id="@+id/txtNote"
+        android:textSize="20sp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_marginTop="5dp"
+        android:text="Finally you need to add Android ImageView, this ImageView will have a star icon and it will be used to add a particular email to your favorites. This ImageView will be placed under (tvEmailTime) and you can get the star icon from Android Studio asset studio."/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/txtTitle"
+        android:text="2020/04/21 14:32pm"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgDelete"
+        android:layout_below="@id/txtNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:srcCompat="@drawable/ic_baseline_delete_forever_24"
+        android:layout_alignParentRight="true"
+        android:tint="#F44336"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgUpdate"
+        android:layout_margin="4dp"
+        android:layout_below="@id/txtNote"
+        android:layout_toLeftOf="@id/imgDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_edit_24"
+        android:tint="#F44336"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/black"
+        android:layout_below="@id/imgDelete"
+        />
+
+</RelativeLayout>
