@@ -42,16 +42,14 @@ public class MainActivity extends AppCompatActivity {
         noteList = new ArrayList<>();
         //
 
-        int count = noteDatabase.getNoteCount();
-        if (count<1){
-            emptyImage.setVisibility(View.VISIBLE);
-        }
-        else {
-            emptyImage.setVisibility(View.GONE);
-        }
-
 
         noteList=noteDatabase.selectAllNotes();
+        if (noteList.size()<1){
+            emptyImage.setVisibility(View.VISIBLE);
+        }else
+        {
+            emptyImage.setVisibility(View.GONE);
+        }
         noteAdapter = new NoteAdapter(MainActivity.this,noteList);
         recyclerView.setAdapter(noteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
@@ -77,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
 //        noteAdapter = new NoteAdapter(MainActivity.this,noteList);
 //        recyclerView.setAdapter(noteAdapter);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        int count = noteDatabase.getNoteCount();
+//        if (count<1){
+//            emptyImage.setVisibility(View.VISIBLE);
+//        }
+//        else{
+//            emptyImage.setVisibility(View.GONE);
+//
+//        }
 
     }
 
@@ -85,9 +91,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 1000){
             noteList=noteDatabase.selectAllNotes();
+            if (noteList.size()<1){
+                emptyImage.setVisibility(View.VISIBLE);
+            }else
+            {
+                emptyImage.setVisibility(View.GONE);
+            }
+
             noteAdapter = new NoteAdapter(MainActivity.this,noteList);
             recyclerView.setAdapter(noteAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+
 
             Toast.makeText(MainActivity.this,"ok",Toast.LENGTH_LONG).show();
         }

@@ -63,6 +63,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
                             notifyItemRangeChanged(position,getItemCount());
 
                             Toast.makeText(context,"delete",Toast.LENGTH_LONG).show();
+
                         }
 
                     }
