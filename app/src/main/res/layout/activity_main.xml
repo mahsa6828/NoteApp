@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/emptyImg"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:src="@drawable/emptyfile"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc"
         android:layout_width="match_parent"

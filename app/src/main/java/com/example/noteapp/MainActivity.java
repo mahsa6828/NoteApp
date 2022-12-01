@@ -3,6 +3,7 @@ package com.example.noteapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,45 +23,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    AppCompatImageView emptyImage;
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
     NoteDatabase noteDatabase;
     List<Note> noteList;
     NoteAdapter noteAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        emptyImage = findViewById(R.id.emptyImg);
         floatingActionButton=findViewById(R.id.floatBtn);
         recyclerView=findViewById(R.id.rc);
         noteDatabase = new NoteDatabase(this);
         noteList = new ArrayList<>();
-        //registerForContextMenu(recyclerView);
+
+        int count = noteDatabase.getNoteCount();
+        if (count<1){
+            emptyImage.setVisibility(View.VISIBLE);
+        }
+        else {
+            emptyImage.setVisibility(View.GONE);
+        }
 
 
         noteList=noteDatabase.selectAllNotes();
+        noteAdapter = new NoteAdapter(MainActivity.this,noteList);
+        recyclerView.setAdapter(noteAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,CreateNoteActivity.class);
-                startActivityForResult(intent,122);
+                startActivityForResult(intent,1000);
 
             }
         });
 
-        noteAdapter = new NoteAdapter(MainActivity.this,noteList);
-        recyclerView.setAdapter(noteAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        noteList=noteDatabase.selectAllNotes();
+//        noteAdapter = new NoteAdapter(MainActivity.this,noteList);
+//        recyclerView.setAdapter(noteAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == 122){
+        if (resultCode == RESULT_OK && requestCode == 1000){
             noteList=noteDatabase.selectAllNotes();
             noteAdapter = new NoteAdapter(MainActivity.this,noteList);
             recyclerView.setAdapter(noteAdapter);
@@ -69,16 +91,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"ok",Toast.LENGTH_LONG).show();
         }
     }
-    //    @Override
-//    public boolean onContextItemSelected(@NonNull MenuItem item) {
-//
-//        switch (item.getItemId()){
-//            case R.id.update:{
-//            }
-//            case R.id.delete:{
-//
-//            }
-//        }
-//        return super.onContextItemSelected(item);
-//    }
+
+
 }

@@ -15,7 +15,6 @@ public class NoteDatabase extends SQLiteOpenHelper {
     Note note1;
     List<Note> noteList;
     public static final String db_name = "note.db";
-    public static final String tbl_name = "tbl_note";
     public static final int db_version = 1;
     public NoteDatabase(@Nullable Context context) {
         super(context, db_name, null, db_version);

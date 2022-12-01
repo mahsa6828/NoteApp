@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,11 +13,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EditNoteActivity extends AppCompatActivity {
+public class EditNoteActivity extends AppCompatActivity{
     NoteDatabase noteDatabase;
     AppCompatEditText edtTitle,edtNote;
     AppCompatButton btnUpdate,btnCancel;
     int id;
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class EditNoteActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
         btnCancel = findViewById(R.id.btnCancel);
         id=getIntent().getIntExtra("idNote",0);
+        pos = getIntent().getIntExtra("pos",0);
         noteDatabase = new NoteDatabase(this);
         Note note=noteDatabase.selectNoteById(id);
         edtTitle.setText(note.getTitle());
@@ -50,7 +53,9 @@ public class EditNoteActivity extends AppCompatActivity {
                 Note note1 = new Note(title,note,dateAndTime);
                 int returnId=noteDatabase.updateNote(note1,id);
                 if (returnId>0){
+                    setResult(RESULT_OK);
                     Toast.makeText(EditNoteActivity.this,"updated",Toast.LENGTH_LONG).show();
+
                 }
 
             }
@@ -58,4 +63,5 @@ public class EditNoteActivity extends AppCompatActivity {
 
 
     }
+
 }

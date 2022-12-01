@@ -1,5 +1,6 @@
 package com.example.noteapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,21 +39,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
-        int pos = position;
         Note note = noteList.get(position);
         holder.txtTitle.setText(note.getTitle());
         holder.txtNote.setText(note.getNote());
         holder.txtTime.setText(note.getTime());
-        holder.imgUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context,EditNoteActivity.class);
-                intent.putExtra("idNote",note.getId());
-                context.startActivity(intent);
-            }
-        });
-
-
 
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +75,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
                 });
                 alert.show();
 
-
-
-
+            }
+        });
+        holder.imgUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,EditNoteActivity.class);
+                intent.putExtra("idNote",note.getId());
+                ((Activity) context).startActivityForResult(intent,1000);
             }
         });
 
@@ -114,18 +109,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
             imgDelete = itemView.findViewById(R.id.imgDelete);
             imgUpdate = itemView.findViewById(R.id.imgUpdate);
             mainRelativeLayout = itemView.findViewById(R.id.relative);
-            //mainRelativeLayout.setOnCreateContextMenuListener(this);
 
         }
 
-//        @Override
-//        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-//            contextMenu.setHeaderTitle("Select The Action");
-//            contextMenu.add(0, R.id.update, 0, "update");//groupId, itemId, order, title
-//            contextMenu.add(0, R.id.delete, 0, "delete");
-//            //menu.add(this.getAdapterPosition(),121,0,"delete");
-//
-//        }
+
 
 
 
