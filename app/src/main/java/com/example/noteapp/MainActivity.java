@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.rc);
         noteDatabase = new NoteDatabase(this);
         noteList = new ArrayList<>();
+        //
 
         int count = noteDatabase.getNoteCount();
         if (count<1){
